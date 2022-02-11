@@ -1,28 +1,9 @@
-#define NULL 0
 #include <iostream>
-
-struct QueueElement {
-    char name[50];
-    struct QueueElement* ptrNext = NULL;
-};
-
-class Queue {
-    public:
-    Queue();
-    ~Queue();
-    void addElement();
-    void deleteElement();
-    class Queue* copyQueue();
-    class Queue* mergeQueues(class Queue* ptrFirstQueue, class Queue* ptrLastQueue);
-    private:
-    struct QueueElement* ptrFirstElement;
-    struct QueueElement* ptrLastElement;
-    protected:
-};
+#include "Queue.h"
 
 Queue::Queue(){
-    ptrFirstElement = NULL;
-    ptrLastElement = NULL;
+    ptrFirstElement = nullptr;
+    ptrLastElement = nullptr;
 }
 
 //free memory
@@ -39,10 +20,10 @@ Queue::~Queue(){
 
 void Queue::addElement(){
     struct QueueElement* element = new struct QueueElement;
-    std::cout << "Enter name:" << std::endl;
-    std::cin >> element->name;
+    std::cout << "Enter number:" << std::endl;
+    std::cin >> element->number;
 
-    if (ptrFirstElement == NULL){
+    if (ptrFirstElement == nullptr){
         ptrFirstElement = element;
         ptrLastElement = element;
         return;
@@ -54,7 +35,7 @@ void Queue::addElement(){
 }
 
 void Queue::deleteElement(){
-    if (ptrFirstElement == NULL){
+    if (ptrFirstElement == nullptr){
         std::cout << "Nothing to delete!" << std::endl;
         return;
     }
@@ -73,22 +54,58 @@ class Queue* Queue::copyQueue(){
     struct QueueElement* previousElementInNewQueue; // to add ptrNext to the element
     while(element){
         elementInNewQueue = new struct QueueElement;
-    /* rework is needed, not complited*/
-        if (element == ptrFirstElement)
-            newQueue->ptrFirstElement = elementInNewQueue;
-        if (element == ptrLastElement)
-            newQueue->ptrLastElement = elementInNewQueue;
+        elementInNewQueue->number = element->number;
 
+        if (element == ptrFirstElement){
+            previousElementInNewQueue = elementInNewQueue;
+            newQueue->ptrFirstElement = elementInNewQueue;
+            element = element->ptrNext;
+            continue;
+        }
+        previousElementInNewQueue->ptrNext = elementInNewQueue;
         previousElementInNewQueue = elementInNewQueue;
         element = element->ptrNext;
-        //
     }
+    newQueue->ptrLastElement = elementInNewQueue;
     //
-    return NULL;
+    return newQueue;
 }
 
-    class Queue* Queue::mergeQueues(class Queue* ptrFirstQueue, class Queue* ptrLastQueue){
+class Queue* mergeQueues(Queue* q1, Queue* q2){
 
- //
-    return NULL;
+    class Queue* newQueue = new class Queue;
+
+    struct QueueElement* elementInNewQueue; 
+    struct QueueElement* previousElementInNewQueue; // to add ptrNext to the element
+
+    struct QueueElement* element = q1->ptrFirstElement; 
+
+    while(element){
+        elementInNewQueue = new struct QueueElement;
+        elementInNewQueue->number = element->number;
+
+        if (element == q1->ptrFirstElement){
+            previousElementInNewQueue = elementInNewQueue;
+            newQueue->ptrFirstElement = elementInNewQueue;
+            element = element->ptrNext;
+            continue;
+        }
+        previousElementInNewQueue->ptrNext = elementInNewQueue;
+        previousElementInNewQueue = elementInNewQueue;
+        element = element->ptrNext;
     }
+
+    struct QueueElement* element = q2->ptrFirstElement; 
+
+    while(element){
+        elementInNewQueue = new struct QueueElement;
+        elementInNewQueue->number = element->number;
+
+        previousElementInNewQueue->ptrNext = elementInNewQueue;
+        previousElementInNewQueue = elementInNewQueue;
+        element = element->ptrNext;
+    }
+    newQueue->ptrLastElement = elementInNewQueue;
+
+    return newQueue;
+}
