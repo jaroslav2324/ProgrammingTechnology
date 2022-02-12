@@ -109,3 +109,19 @@ class Queue* mergeQueues(Queue* q1, Queue* q2){
 
     return newQueue;
 }
+
+void printQueue(Queue* q){
+    QueueElement* element = q->ptrFirstElement;
+
+    if (element == nullptr){
+        std::cout << "Nothing to print!" << std::endl;
+        return;
+    }
+
+    while(element){
+        std::cout << element->number << "<-";
+        element = element->ptrNext;
+    }
+
+    return;
+}

@@ -11,6 +11,7 @@ class Queue {
     void addElement();
     void deleteElement();
     class Queue* copyQueue();
+    friend void printQueue(Queue* q);
     friend class Queue* mergeQueues(Queue* q1, Queue* q2);
     private:
     struct QueueElement* ptrFirstElement;
