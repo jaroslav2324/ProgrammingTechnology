@@ -8,6 +8,8 @@ Queue::Queue(){
 
 //free memory
 Queue::~Queue(){
+    if (!ptrFirstElement)
+        return;
     struct QueueElement* element = ptrFirstElement->ptrNext;
     while(ptrFirstElement){
         delete(ptrFirstElement);
@@ -71,6 +73,10 @@ class Queue* Queue::copyQueue(){
     return newQueue;
 }
 
+struct QueueElement* Queue::returnPtrFirst(){
+    return ptrFirstElement;
+}
+
 class Queue* mergeQueues(Queue* q1, Queue* q2){
 
     class Queue* newQueue = new class Queue;
@@ -95,7 +101,7 @@ class Queue* mergeQueues(Queue* q1, Queue* q2){
         element = element->ptrNext;
     }
 
-    struct QueueElement* element = q2->ptrFirstElement; 
+    element = q2->ptrFirstElement; 
 
     while(element){
         elementInNewQueue = new struct QueueElement;
@@ -118,10 +124,10 @@ void printQueue(Queue* q){
         return;
     }
 
-    while(element){
+    while(element->ptrNext){
         std::cout << element->number << "<-";
         element = element->ptrNext;
     }
-
+    std::cout << element->number << std::endl;
     return;
 }

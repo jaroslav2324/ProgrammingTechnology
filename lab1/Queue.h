@@ -1,3 +1,5 @@
+#pragma once
+#include <iostream>
 
 struct QueueElement {
     int number;
@@ -17,4 +19,8 @@ class Queue {
     struct QueueElement* ptrFirstElement;
     struct QueueElement* ptrLastElement;
     protected:
+    struct QueueElement* returnPtrFirst();
 };
+
+class Queue* mergeQueues(Queue* q1, Queue* q2);
+void printQueue(Queue* q);
