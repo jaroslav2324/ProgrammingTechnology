@@ -23,7 +23,18 @@ Queue::~Queue(){
 void Queue::addElement(){
     struct QueueElement* element = new struct QueueElement;
     std::cout << "Enter number:" << std::endl;
+
     std::cin >> element->number;
+    std::cout << element->number << " added" << std::endl;
+    if (!std::cin){
+        std::cout << std::endl << "It is not a number!" << std::endl;
+        delete(element);
+         std::cin.clear();
+        std::cin.ignore(1000000, '\n');
+        return;
+    }
+
+    std::cin.ignore(1000000, '\n');
 
     if (ptrFirstElement == nullptr){
         ptrFirstElement = element;

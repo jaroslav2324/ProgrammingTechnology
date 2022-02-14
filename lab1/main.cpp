@@ -8,10 +8,11 @@
 using namespace std;
 
 int main(){
+    
     Queue* currentQueue;
-    DerPublic publicQueue ;//= new DerPublic;
-    DerPrivate privateQueue; //= new DerPrivate;
-    DerProtected protectedQueue; //= new DerProtected;
+    DerPublic publicQueue;
+    DerPrivate privateQueue; 
+    DerProtected protectedQueue; 
 
     currentQueue = &publicQueue;
 
@@ -33,10 +34,10 @@ int main(){
                     currentQueue = &publicQueue;
                     break;
                 case '2':
-                    //currentQueue = &privateQueue;
+                    currentQueue = (Queue*)(&privateQueue);
                     break;
                 case '3':
-                    //currentQueue = &protectedQueue;
+                    currentQueue = (Queue*)(&protectedQueue);
                     break;
             }
                 cout << "Enter operation" << endl;
@@ -69,8 +70,49 @@ int main(){
                 cout << "Enter operation" << endl;
                 break;
             case '6':
+            {
+                Queue* q1ptr,* q2ptr;
+                cout << "Choose queues:\n1 - public queue\n2 - private queue\n3 - protected queue\n";
+                cout << "First queue:\n";
+
+                char c1 = getch();
+                if (!(c1 == '1' || c1 == '2' || c1 == '3'))
+                {
+                    cout << "Wrong num of queue" << endl;
+                    break;
+                }
+                switch(c1){
+                    case '1':
+                    q1ptr = &publicQueue;
+                    case '2':
+                    q1ptr = (Queue*)(&privateQueue);
+                    case '3':
+                    q1ptr = (Queue*)(&protectedQueue);
+                }
+                cout << "Second queue:\n";
+
+                char c2 = getch();
+
+                if (!(c2 == '1' || c2 == '2' || c2 == '3'))
+                {
+                    cout << "Wrong num of queue" << endl;
+                    break;
+                }
+                switch(c2){
+                    case '1':
+                    q2ptr = &publicQueue;
+                    case '2':
+                    q2ptr = (Queue*)(&privateQueue);
+                    case '3':
+                    q2ptr = (Queue*)(&protectedQueue);
+                }
+
+                Queue* newQueue = mergeQueues(q1ptr, q2ptr);
+                printQueue(newQueue);
+
                 cout << "Enter operation" << endl;
                 break;
+            }
             case 'Q':
                 cout << "Exiting" << endl;
                 return 0;
