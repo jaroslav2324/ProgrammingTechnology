@@ -83,11 +83,14 @@ int main(){
                 }
                 switch(c1){
                     case '1':
-                    q1ptr = &publicQueue;
+                        q1ptr = &publicQueue;
+                        break;
                     case '2':
-                    q1ptr = (Queue*)(&privateQueue);
+                        q1ptr = (Queue*)(&privateQueue);
+                        break;
                     case '3':
-                    q1ptr = (Queue*)(&protectedQueue);
+                        q1ptr = (Queue*)(&protectedQueue);
+                        break;
                 }
                 cout << "Second queue:\n";
 
@@ -100,11 +103,14 @@ int main(){
                 }
                 switch(c2){
                     case '1':
-                    q2ptr = &publicQueue;
+                        q2ptr = &publicQueue;
+                        break;
                     case '2':
-                    q2ptr = (Queue*)(&privateQueue);
+                        q2ptr = (Queue*)(&privateQueue);
+                        break;
                     case '3':
-                    q2ptr = (Queue*)(&protectedQueue);
+                        q2ptr = (Queue*)(&protectedQueue);
+                        break;
                 }
 
                 Queue* newQueue = mergeQueues(q1ptr, q2ptr);
