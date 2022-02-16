@@ -1,4 +1,4 @@
-#include "DerievedPrivate.h"
+#include "DerivedPrivate.h"
 
 DerPrivate::DerPrivate(){
 

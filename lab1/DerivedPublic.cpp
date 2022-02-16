@@ -1,4 +1,4 @@
-#include "DerievedPublic.h"
+#include "DerivedPublic.h"
 
 DerPublic::DerPublic(){
 

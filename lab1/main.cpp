@@ -1,9 +1,9 @@
 #include <conio.h>
 
 #include "Queue.h"
-#include "DerievedPublic.h"
-#include "DerievedPrivate.h"
-#include "DerievedProtected.h"
+#include "DerivedPublic.h"
+#include "DerivedPrivate.h"
+#include "DerivedProtected.h"
 
 using namespace std;
 
@@ -16,12 +16,13 @@ int main(){
 
     currentQueue = &publicQueue;
 
- cout << "c - Choose queue(1 - public, 2 - private, 3 - protected)\n1 - Add element\n2 - Delete element\n3 - Print queue\n4 - Count more average garmonic\n5 - Copy queue\n6 - Merge queues\nQ - Exit\n";
+ cout << "c - Choose queue(1 - public, 2 - private, 3 - protected)\n1 - Add element\n2 - Delete element\n3 - Print queue\n4 - Count more average garmonic\n5 - Copy queue\n6 - Merge queues\nQ - Exit\n\n";
         
 
     while (1)
     {
         char c = getch();
+        cout << c << endl;
         switch(c){
             case '\n':
                 break;

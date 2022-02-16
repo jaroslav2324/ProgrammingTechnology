@@ -1,4 +1,4 @@
-#include "DerievedProtected.h"
+#include "DerivedProtected.h"
 
 DerProtected::DerProtected(){
 
