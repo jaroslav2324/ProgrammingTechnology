@@ -93,7 +93,7 @@ class Queue* mergeQueues(Queue* q1, Queue* q2){
     class Queue* newQueue = new class Queue;
 
     struct QueueElement* elementInNewQueue; 
-    struct QueueElement* previousElementInNewQueue; // to add ptrNext to the element
+    struct QueueElement* previousElementInNewQueue = nullptr; // to add ptrNext to the element
 
     struct QueueElement* element = q1->ptrFirstElement; 
 
@@ -117,6 +117,13 @@ class Queue* mergeQueues(Queue* q1, Queue* q2){
     while(element){
         elementInNewQueue = new struct QueueElement;
         elementInNewQueue->number = element->number;
+
+        if (element == q2->ptrFirstElement && !previousElementInNewQueue){
+            previousElementInNewQueue = elementInNewQueue;
+            newQueue->ptrFirstElement = elementInNewQueue;
+            element = element->ptrNext;
+            continue;
+        }
 
         previousElementInNewQueue->ptrNext = elementInNewQueue;
         previousElementInNewQueue = elementInNewQueue;

@@ -30,17 +30,23 @@ int main(){
             case 'c':
             cout << "Enter num of queue" << endl;
             c = getch();
-            switch(c){
-                case '1':
-                    currentQueue = &publicQueue;
-                    break;
-                case '2':
-                    currentQueue = (Queue*)(&privateQueue);
-                    break;
-                case '3':
-                    currentQueue = (Queue*)(&protectedQueue);
-                    break;
+            if (c == '1' || c == '2' || c == '3')
+                switch(c){
+                    case '1':
+                      currentQueue = &publicQueue;
+                      cout << "Current queue is public" << endl;
+                      break;
+                    case '2':
+                        currentQueue = (Queue*)(&privateQueue);
+                        cout << "Current queue is private" << endl;
+                        break;
+                    case '3':
+                        currentQueue = (Queue*)(&protectedQueue);
+                        cout << "Current queue is protected" << endl;
+                        break;
             }
+            else
+                cout << "Queue with this number does not exist!" << endl;
                 cout << "Enter operation" << endl;
                 break;
             case '1':
@@ -80,6 +86,7 @@ int main(){
                 if (!(c1 == '1' || c1 == '2' || c1 == '3'))
                 {
                     cout << "Wrong num of queue" << endl;
+                    cout << "Enter operation" << endl;
                     break;
                 }
                 switch(c1){
@@ -100,6 +107,7 @@ int main(){
                 if (!(c2 == '1' || c2 == '2' || c2 == '3'))
                 {
                     cout << "Wrong num of queue" << endl;
+                    cout << "Enter operation" << endl;
                     break;
                 }
                 switch(c2){
