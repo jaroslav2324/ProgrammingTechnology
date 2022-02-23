@@ -1,15 +1,19 @@
-#pragma once
 #include <random>
 
 #include "List.h"
 
-List::List(){
-    ptrFirstElement = nullptr;
-    ptrLastElement = nullptr;
-}
-
 /*unsigned int from 1 to max unsigned int size*/
-List::List(unsigned int amount = 0){
+List::List(){
+
+    unsigned int amount;
+    std::cout << "Enter length of list" << std::endl;
+    std::cin >> amount;
+    if (!(std::cin.good())){
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Wrong length of list! Initialising empty list..." << std::endl << std::endl; 
+        amount = 0;
+    }
 
     if (amount == 0){
         ptrFirstElement = nullptr;
@@ -111,28 +115,31 @@ void printList(List* l){
 
 List& List::operator++(){
 
-    if (ptrFirstElement == nullptr){
-        std::cout << "Nothing to delete" << std::endl;
-        return *this;
-    }
-
     ListElement* newElem = new ListElement;
     newElem->number = randNumInRange_10_20();
+
+    if (ptrFirstElement == nullptr){
+        ptrFirstElement = newElem;
+        ptrLastElement = newElem;
+        return *this;
+    }
 
     newElem->ptrNext = ptrFirstElement;
     ptrFirstElement = newElem;
     return *this;
 
 }
-List& List::operator++(int ignored){
 
-    if (ptrFirstElement == nullptr){
-        std::cout << "Nothing to delete" << std::endl;
-        return *this;
-    }
+List& List::operator++(int ignored){
 
     ListElement* newElem = new ListElement;
     newElem->number = randNumInRange_10_20();
+
+    if (ptrFirstElement == nullptr){
+        ptrFirstElement = newElem;
+        ptrLastElement = newElem;
+        return *this;
+    }
 
     ptrLastElement->ptrNext = newElem;
     ptrLastElement = newElem;
@@ -159,6 +166,7 @@ List& operator--(List& list){
 
     return list;
 }
+
 List& operator--(List& list, int ignored){
 
     if (list.ptrFirstElement == nullptr){
@@ -180,16 +188,36 @@ List& operator--(List& list, int ignored){
     
     delete(list.ptrLastElement);
     list.ptrLastElement = delElem;
+    list.ptrLastElement->ptrNext = nullptr;
 
     return list;
 
 }
 
-unsigned int randNumInRange_10_20(){
+unsigned int List::randNumInRange_10_20(){
 
     uint num = std::rand() % 21;
     if (num < 10)
         num += 10;
+    return num;
+}
+/*enter unsigned int*/
+int enterint(){
+
+    int num;
+
+    std::cout << "Enter int number" << std::endl;
+    std::cin >> num;
+
+    while (!(std::cin.good())){
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Wrong number! Try once again!" << std::endl; 
+            std::cout << "Enter unsigned int number" << std::endl;
+        std::cin >> num;
+    }
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     return num;
 }
