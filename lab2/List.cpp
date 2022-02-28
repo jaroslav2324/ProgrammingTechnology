@@ -43,6 +43,34 @@ List::List(){
     return;
 }
 
+List::List(int amount){
+    if (amount == 0){
+        ptrFirstElement = nullptr;
+        ptrLastElement = nullptr;
+        return;
+    }
+
+    struct ListElement* previousElement;
+    for (uint i = 0; i < amount; i++){
+        struct ListElement* newElement = new struct ListElement;
+
+        newElement->number = randNumInRange_10_20();
+
+        if (i == 0){
+            ptrFirstElement = newElement;
+            previousElement = newElement;
+            continue;
+        }
+        else if (i == amount - 1){
+            ptrLastElement = newElement;
+        }
+
+        previousElement->ptrNext = newElement;
+        previousElement = newElement;
+    }
+    return;
+}
+
 //free memory
 List::~List(){
     if (!ptrFirstElement)
@@ -95,7 +123,6 @@ struct ListElement* List::popElement(){
     
     return popElem;
 }
-
 
 void printList(List* l){
     ListElement* element = l->ptrFirstElement;

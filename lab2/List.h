@@ -9,11 +9,11 @@ struct ListElement {
 class List {
 public:
     explicit List();
+    List(int amount);
     ~List();
     void addElement();
     ListElement* popElement();
     friend void printList(List* q);
-
 
     List& operator++();
     List& operator++(int ignored);
