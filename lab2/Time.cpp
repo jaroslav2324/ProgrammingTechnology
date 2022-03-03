@@ -41,6 +41,11 @@ Time& Time::operator*(int num){
 
 Time& Time::operator/(int num){
 
+    if (num == 0){
+        std::cout << "You can not use 0 in division!" << std::endl;
+        return *this;
+    }
+
     sec /= num;
     min /= num;
     h /= num;

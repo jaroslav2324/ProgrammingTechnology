@@ -143,7 +143,7 @@ void printList(List* l){
 List& List::operator++(){
 
     ListElement* newElem = new ListElement;
-    newElem->number = randNumInRange_10_20();
+    newElem->number = enterint();
 
     if (ptrFirstElement == nullptr){
         ptrFirstElement = newElem;
@@ -160,7 +160,7 @@ List& List::operator++(){
 List& List::operator++(int ignored){
 
     ListElement* newElem = new ListElement;
-    newElem->number = randNumInRange_10_20();
+    newElem->number = enterint();
 
     if (ptrFirstElement == nullptr){
         ptrFirstElement = newElem;

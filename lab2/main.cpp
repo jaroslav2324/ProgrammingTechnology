@@ -58,6 +58,8 @@ int main(){
             case 'g':
                 time->printTime();
                 break;
+            case '\n':
+                break;
 
             case 'Q':
                 return 0;
