@@ -6,6 +6,7 @@ class Animal : public Mammals{
     public:
     Animal();
     ~Animal();
+    friend class ArrayOfCreatures;
     void showDescription();    
     private:
     std::string breed;

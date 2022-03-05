@@ -3,6 +3,8 @@
 #include "Humans.h"
 
 Human::Human(){
+    typeOfCreature = Human_enum;
+
     std::cout << "Enter name: " << std::endl;
     std::cin >> name;
     std::cout << std::endl << "Enter birthDate: " << std::endl;
