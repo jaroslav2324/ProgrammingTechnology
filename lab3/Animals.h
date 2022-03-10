@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 
 #include "Mammals.h"
@@ -8,7 +10,7 @@ class Animal : public Mammals{
     ~Animal();
     friend class ArrayOfCreatures;
     void showDescription();    
-    private:
+    protected:
     std::string breed;
     std::string name;
     std::string colour;

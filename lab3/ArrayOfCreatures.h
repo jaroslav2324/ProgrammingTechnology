@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 
 #include "Mammals.h"
 
@@ -9,10 +8,18 @@ class ArrayOfCreatures{
 public:
     ArrayOfCreatures();
     ~ArrayOfCreatures();
-
+    void addToArray(Mammals* creature);
+    void chooseCreature();
+    void deleteElement();
+    void readArrayOfObjectsFromFile(const char filename[]);
+    void writeArrayOfObjectsToFile(const char filename[]);
+    void showDescription();
 private:
-    void readArrayOfObjectsFromFile(std::fstream file);
-    void writeArrayOfObjectsToFile(std::fstream file);
-    std::vector<Mammals*> array;
-    int amountAnimals;
+    Mammals** array = nullptr;
+    int amountAnimals = 0;
+    int resizeValue = 10;
+    int sizeArray = 0;
+    int numChosenAnimal = -1;
+    void resizeArray();
+    void findNearestToChooseAfterDeleting();
 };
