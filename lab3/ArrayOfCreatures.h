@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <fstream>
 
@@ -14,6 +16,7 @@ public:
     void readArrayOfObjectsFromFile(const char filename[]);
     void writeArrayOfObjectsToFile(const char filename[]);
     void showDescription();
+    void showAllDescriptions();
 private:
     Mammals** array = nullptr;
     int amountAnimals = 0;
@@ -22,4 +25,5 @@ private:
     int numChosenAnimal = -1;
     void resizeArray();
     void findNearestToChooseAfterDeleting();
+    friend int enterint();
 };

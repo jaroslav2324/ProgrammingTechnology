@@ -1,8 +1,17 @@
 #pragma once
 
 class Mammals{
-    protected:
-    virtual void showDescription() = 0;
+public:
+    Mammals();
+    ~Mammals();
+    static void setAmountMammals(int amount);
+    static void printAmountMammals();
+
+protected:
+    static int amountMammals;
+
     int typeOfCreature;
+
+    virtual void showDescription() = 0;
     friend class ArrayOfCreatures;
 };

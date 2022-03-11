@@ -1,5 +1,6 @@
 #include <cstring>
 #include <random>
+#include <exception>
 
 #include "ArrayOfCreatures.h"
 #include "AnimalsEnum.h"
@@ -12,6 +13,26 @@
 using std::cout;
 using std::endl;
 using std::numeric_limits;
+
+int enterint(){
+
+    int num;
+
+    std::cout << "Enter usigned int number" << std::endl;
+    std::cin >> num;
+
+    while (!(std::cin.good())){
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Wrong number! Try once again!" << std::endl; 
+        std::cout << "Enter unsigned int number" << std::endl;
+        std::cin >> num;
+    }
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    return num;
+}
 
 ArrayOfCreatures::ArrayOfCreatures(){
 
@@ -139,14 +160,37 @@ void ArrayOfCreatures::findNearestToChooseAfterDeleting(){
 }
 
 void ArrayOfCreatures::showDescription(){
+
+    if (numChosenAnimal == -1){
+        cout << "No chosen animal" << endl;
+        return;
+    }
     
     array[numChosenAnimal]->showDescription();
     return;
 }
 
+void ArrayOfCreatures::showAllDescriptions(){
+
+    if (amountAnimals == 0){
+        cout << "No animals in array" << endl;
+        return;
+    }
+
+    for (int i = 0; i < sizeArray; i++)
+        if (array[i] != nullptr){
+            cout << "Number in array: " << i << endl;
+            array[i]->showDescription();
+        }
+    
+    return;
+}
+
 void ArrayOfCreatures::readArrayOfObjectsFromFile(const char filename[]){
 
-    std::fstream file(filename, std::ios::binary);
+    std::fstream file(filename, std::ios::binary | std::ios::in);
+
+    //cout << file.is_open();
 
     if (!(file.is_open())){
         throw std::invalid_argument("File was not opened!");
@@ -166,25 +210,33 @@ void ArrayOfCreatures::readArrayOfObjectsFromFile(const char filename[]){
         file >> animal;
         switch (animal){
         case Human_enum:
-            class Human* humanPtr = new class Human;
-            file >> humanPtr->name >> humanPtr->nationality >> humanPtr->birthDate;
-            addToArray(humanPtr);
-            break;
+            {
+                class Human* humanPtr = new class Human;
+                file >> humanPtr->name >> humanPtr->nationality >> humanPtr->birthDate;
+                addToArray(humanPtr);
+                break;
+            }
         case Dog_enum:
-            class Dog* dogPtr = new class Dog;
-            file >> dogPtr->name >> dogPtr->breed >> dogPtr->colour >> dogPtr->ownerName >> dogPtr->size;
-            addToArray(dogPtr);
-            break;
+            {
+                class Dog* dogPtr = new class Dog;
+                file >> dogPtr->name >> dogPtr->breed >> dogPtr->colour >> dogPtr->ownerName >> dogPtr->size;
+                addToArray(dogPtr);
+                break;
+            }
         case Cat_enum:
-            class Cat* catPtr = new class Cat;
-            file >> catPtr->name >> catPtr->breed >> catPtr->colour >> catPtr->ownerName >> catPtr->size;
-            addToArray(catPtr);
-            break;
+            {
+                class Cat* catPtr = new class Cat;
+                file >> catPtr->name >> catPtr->breed >> catPtr->colour >> catPtr->ownerName >> catPtr->size;
+                addToArray(catPtr);
+                break;
+            }
         case Fish_enum:
-            class Fish* fishPtr = new class Fish;
-            file >> fishPtr->name >> fishPtr->breed >> fishPtr->colour >> fishPtr->ownerName >> fishPtr->size;
-            addToArray(fishPtr);
-            break;
+            {
+                class Fish* fishPtr = new class Fish;
+                file >> fishPtr->name >> fishPtr->breed >> fishPtr->colour >> fishPtr->ownerName >> fishPtr->size;
+                addToArray(fishPtr);
+                break;
+            }
         default:
             std::cout << "Error while reading file" << std::endl;
             break;
@@ -198,7 +250,7 @@ void ArrayOfCreatures::readArrayOfObjectsFromFile(const char filename[]){
 
 void ArrayOfCreatures::writeArrayOfObjectsToFile(const char filename[]){
 
-    std::fstream file(filename, std::ios::binary | std::ios::trunc);
+    std::fstream file(filename, std::ios::binary | std::ios::out | std::ios::trunc);
 
     if (!(file.is_open())){
         throw std::invalid_argument("File was not opened!");
@@ -240,22 +292,3 @@ void ArrayOfCreatures::writeArrayOfObjectsToFile(const char filename[]){
     
 }
 
-int enterint(){
-
-    int num;
-
-    std::cout << "Enter usigned int number" << std::endl;
-    std::cin >> num;
-
-    while (!(std::cin.good())){
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Wrong number! Try once again!" << std::endl; 
-        std::cout << "Enter unsigned int number" << std::endl;
-        std::cin >> num;
-    }
-
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    return num;
-}
