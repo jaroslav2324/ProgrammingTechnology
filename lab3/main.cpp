@@ -22,7 +22,7 @@ int main(){
     cout << "1 - add a human to array" << endl << "2 - add a cat to array" << endl << "3 - add a dog to array" << endl << "4 - add a fish to array" << endl;
     cout << "5 - delete chosen creature" << endl << "6 - choose creature in array" << endl << "7 - show description of a creature" << endl;
     cout << "8 - show description of all creatures" << endl << "9 - print amount of creatures" << endl;
-    //print amount creatures; show all descriptions;
+    //change creature;
 
 
         while(1){

@@ -5,11 +5,10 @@
 
 Animal::Animal(){
 
-
-    std::cout << "Enter breed: " << std::endl;
-    std::cin >> breed;
     std::cout << std::endl << "Enter name: " << std::endl;
     std::cin >> name;
+    std::cout << "Enter breed: " << std::endl;
+    std::cin >> breed;
     std::cout << std::endl << "Enter colour: " << std::endl;
     std::cin >> colour;
     std::cout << std::endl << "Enter owner name: " << std::endl;
@@ -17,6 +16,10 @@ Animal::Animal(){
     std::cout << std::endl << "Enter size: " << std::endl;
     std::cin >> size;
     std::cout << std::endl << "Added" << std::endl;
+}
+
+Animal::Animal(int ignored){
+
 }
 
 Animal::~Animal(){

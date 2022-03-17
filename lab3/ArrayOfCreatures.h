@@ -26,4 +26,5 @@ private:
     void resizeArray();
     void findNearestToChooseAfterDeleting();
     friend int enterint();
+    friend char* readline(std::fstream& file, char* buffer, int lenbuff);
 };

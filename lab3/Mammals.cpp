@@ -14,7 +14,8 @@ Mammals::Mammals(){
 }
 
 Mammals::~Mammals(){
-
+    
+    amountMammals--;
     return;
 }
 

@@ -4,6 +4,7 @@
 class Cat final: public Animal{
     public:
     Cat();
+    Cat(int ignored);
     ~Cat();
     friend class ArrayOfCreatures;
 };

@@ -7,6 +7,7 @@
 class Animal : public Mammals{
     public:
     Animal();
+    Animal(int ignored);
     ~Animal();
     friend class ArrayOfCreatures;
     void showDescription();    

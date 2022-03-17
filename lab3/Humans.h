@@ -10,6 +10,7 @@ class Human final: public Mammals{
     public:
     friend class ArrayOfCreatures;
     Human();
+    Human(int ignored);
     ~Human();
     void showDescription() override;
 
