@@ -5,6 +5,20 @@
 
 Animal::Animal(){
 
+    changeDescription();
+    return;
+}
+
+Animal::Animal(int ignored){
+
+}
+
+Animal::~Animal(){
+    
+}
+
+void Animal::changeDescription(){
+
     std::cout << std::endl << "Enter name: " << std::endl;
     std::cin >> name;
     std::cout << "Enter breed: " << std::endl;
@@ -16,14 +30,8 @@ Animal::Animal(){
     std::cout << std::endl << "Enter size: " << std::endl;
     std::cin >> size;
     std::cout << std::endl << "Added" << std::endl;
-}
 
-Animal::Animal(int ignored){
-
-}
-
-Animal::~Animal(){
-    
+    return;
 }
 
 void Animal::showDescription(){
@@ -40,5 +48,5 @@ void Animal::showDescription(){
             break;
     }
     std::cout << std::endl << "Description of this animal:" << std::endl;
-    std::cout << "Breed: " << breed << std::endl<< "Name: " << name << std::endl << "Colour " << colour << std::endl << "Owner Name: " << ownerName << std::endl << "Size: " << size << std::endl << std::endl;
+    std::cout << "Breed: " << breed << std::endl<< "Name: " << name << std::endl << "Colour: " << colour << std::endl << "Owner Name: " << ownerName << std::endl << "Size: " << size << std::endl << std::endl;
 }

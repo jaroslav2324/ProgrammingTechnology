@@ -71,7 +71,7 @@ void ArrayOfCreatures::addToArray(Mammals* creature){
         return;
     } 
 
-    if (amountAnimals == sizeArray)
+    if (amountAnimals == sizeArray || amountAnimals > sizeArray)
         resizeArray();
 
     for (int i = 0; i <= amountAnimals; i ++){
@@ -87,7 +87,9 @@ void ArrayOfCreatures::addToArray(Mammals* creature){
 
 void ArrayOfCreatures::resizeArray(){
 
-    sizeArray += resizeValue;
+    while (amountAnimals >= sizeArray)
+            sizeArray += resizeValue;
+
     Mammals** newArr = new Mammals*[sizeArray];
     memset(newArr, 0, sizeArray * sizeof(Mammals*));
 	memcpy(newArr, array, (sizeArray - resizeValue) * sizeof(Mammals*));
@@ -99,7 +101,7 @@ void ArrayOfCreatures::chooseCreature(){
 
     int num = -1;
 
-    while(num < 0 || num >= amountAnimals){
+    while(num < 0 || num >= sizeArray){
         num = enterint();
         if (array[num] == nullptr){
             num = -1;
@@ -108,6 +110,7 @@ void ArrayOfCreatures::chooseCreature(){
         }
     }
     numChosenAnimal = num;
+    cout << "Chosen " << numChosenAnimal << " animal" << endl;
     return;
 }
 
@@ -212,8 +215,6 @@ void ArrayOfCreatures::readArrayOfObjectsFromFile(const char filename[]){
     if (file.eof())
         return;
 
-
-
     int animal; 
 
     for (int i = 0; i < amountAnimals; i++){
@@ -235,6 +236,7 @@ void ArrayOfCreatures::readArrayOfObjectsFromFile(const char filename[]){
                 std::string str3(buffer);
                 humanPtr->birthDate = str3;
                 addToArray(humanPtr);
+                amountAnimals--;
                 break;
             }
         case Dog_enum:
@@ -256,6 +258,7 @@ void ArrayOfCreatures::readArrayOfObjectsFromFile(const char filename[]){
                 std::string str5(buffer);
                 dogPtr->size = str5;
                 addToArray(dogPtr);
+                amountAnimals--;
                 break;
             }
         case Cat_enum:
@@ -277,6 +280,7 @@ void ArrayOfCreatures::readArrayOfObjectsFromFile(const char filename[]){
                 std::string str5(buffer);
                 catPtr->size = str5;
                 addToArray(catPtr);
+                amountAnimals--;                
                 break;
             }
         case Fish_enum:
@@ -298,6 +302,7 @@ void ArrayOfCreatures::readArrayOfObjectsFromFile(const char filename[]){
                 std::string str5(buffer);
                 fishPtr->size = str5;
                 addToArray(fishPtr);
+                amountAnimals--;                
                 break;
             }
         default:
@@ -355,4 +360,21 @@ void ArrayOfCreatures::writeArrayOfObjectsToFile(const char filename[]){
 
     return;
     
+}
+
+void ArrayOfCreatures::changeCreature(){
+
+    if (numChosenAnimal == -1){
+        cout << "Nothing to edit!" << endl;
+        return;
+    }
+    if (array[numChosenAnimal]->typeOfCreature == Human_enum)
+        ((Human*)array[numChosenAnimal])->changeDescription();
+    if (array[numChosenAnimal]->typeOfCreature == Dog_enum)
+        ((Dog*)array[numChosenAnimal])->changeDescription();
+    if (array[numChosenAnimal]->typeOfCreature == Cat_enum)
+        ((Cat*)array[numChosenAnimal])->changeDescription();
+    if (array[numChosenAnimal]->typeOfCreature == Fish_enum)
+        ((Fish*)array[numChosenAnimal])->changeDescription();
+    return;
 }

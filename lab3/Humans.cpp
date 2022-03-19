@@ -5,13 +5,7 @@
 Human::Human(){
     typeOfCreature = Human_enum;
 
-    std::cout << "Enter name: " << std::endl;
-    std::cin >> name;
-    std::cout << std::endl << "Enter birthDate: " << std::endl;
-    std::cin >> birthDate;
-    std::cout << std::endl << "Enter nationality: " << std::endl;
-    std::cin >> nationality;
-    std::cout << std::endl << "Added" << std::endl;
+    changeDescription();
     return;
 }
 /*with no initialistation*/
@@ -21,6 +15,18 @@ Human::Human(int ignored){
 
 Human::~Human(){
     
+}
+
+void Human::changeDescription(){
+
+    std::cout << "Enter name: " << std::endl;
+    std::cin >> name;
+    std::cout << std::endl << "Enter birthDate: " << std::endl;
+    std::cin >> birthDate;
+    std::cout << std::endl << "Enter nationality: " << std::endl;
+    std::cin >> nationality;
+    std::cout << std::endl << "Added" << std::endl;
+    return;
 }
 
 void Human::showDescription(){

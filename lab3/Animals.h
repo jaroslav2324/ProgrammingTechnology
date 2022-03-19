@@ -11,6 +11,7 @@ class Animal : public Mammals{
     ~Animal();
     friend class ArrayOfCreatures;
     void showDescription();    
+    void changeDescription();
     protected:
     std::string breed;
     std::string name;

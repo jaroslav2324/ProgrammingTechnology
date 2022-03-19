@@ -13,6 +13,7 @@ class Human final: public Mammals{
     Human(int ignored);
     ~Human();
     void showDescription() override;
+    void changeDescription();
 
     private:
     std::string name;

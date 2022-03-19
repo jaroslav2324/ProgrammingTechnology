@@ -17,6 +17,7 @@ public:
     void writeArrayOfObjectsToFile(const char filename[]);
     void showDescription();
     void showAllDescriptions();
+    void changeCreature();
 private:
     Mammals** array = nullptr;
     int amountAnimals = 0;

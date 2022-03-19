@@ -21,7 +21,7 @@ int main(){
 
     cout << "1 - add a human to array" << endl << "2 - add a cat to array" << endl << "3 - add a dog to array" << endl << "4 - add a fish to array" << endl;
     cout << "5 - delete chosen creature" << endl << "6 - choose creature in array" << endl << "7 - show description of a creature" << endl;
-    cout << "8 - show description of all creatures" << endl << "9 - print amount of creatures" << endl;
+    cout << "8 - show description of all creatures" << endl << "9 - print amount of creatures" << endl << "0 - change creature" << endl;
     //change creature;
 
 
@@ -77,6 +77,9 @@ int main(){
                 break;
             case '9':
                 Mammals::printAmountMammals();
+                break;
+            case '0':
+                array.changeCreature();
                 break;
             case 'Q':
                 array.writeArrayOfObjectsToFile(filename);

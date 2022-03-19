@@ -4,7 +4,7 @@
 class Cat final: public Animal{
     public:
     Cat();
-    Cat(int ignored);
+    Cat(int ignored): Animal{0}{typeOfCreature = Cat_enum;};
     ~Cat();
     friend class ArrayOfCreatures;
 };
