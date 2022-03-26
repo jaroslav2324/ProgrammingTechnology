@@ -8,6 +8,8 @@ using std::endl;
 
 int main(){
 
+    srand(time(0));
+
     char c;
     while(1){
 
@@ -24,22 +26,81 @@ int main(){
             switch(c){
             case '1':{
 
+                int size;
+                cout << "Enter size of array" << endl;
+                size = enterUint();
+
+                int array[size];
+
+                fillArrayWithRandomNumbers(array, size);
+                printArray(array, size);
+
+                mergeSort(array, 0, size - 1);
+
+                printArray(array, size);
             }
                 break;
             case '2':{
 
+                int size;
+                cout << "Enter size of array" << endl;
+                size = enterUint();
+
+                char array[size];
+
+                fillArrayWithRandomNumbers(array, size);
+                printArray(array, size);
+
+                mergeSort(array, 0, size - 1);
+
+                printArray(array, size);
             }
                 break;
             case '3':{
 
+                int size;
+                cout << "Enter size of array" << endl;
+                size = enterUint();
+
+                float array[size];
+
+                fillArrayWithRandomNumbers(array, size);
+                printArray(array, size);
+
+                mergeSort(array, 0, size - 1);
+
+                printArray(array, size);
             }
                 break;
             case '4':{
 
+                int size;
+                cout << "Enter size of array" << endl;
+                size = enterUint();
+
+                double array[size];
+
+                fillArrayWithRandomNumbers(array, size);
+                printArray(array, size);
+
+                mergeSort(array, 0, size - 1);
+
+                printArray(array, size);
             }
                 break;
             case '5':{
+                int size;
+                cout << "Enter size of array" << endl;
+                size = enterUint();
 
+                char* array[size];
+
+                fillArrayWithRandomStrings(array, size);
+                printStringArray(array, size);
+
+                mergeSort(array, 0, size - 1);
+
+                printStringArray(array, size);
             }
                 break;
             case 'b':
@@ -55,23 +116,28 @@ int main(){
              c = getch();
             switch(c){
             case '1':{
-
+                CyclicQueue<int> queue;
+                queue.queueMenu();
             }
                 break;
             case '2':{
-
+                CyclicQueue<char> queue;
+                queue.queueMenu();
             }
                 break;
             case '3':{
-
+                CyclicQueue<float> queue;
+                queue.queueMenu();
             }
                 break;
             case '4':{
-
+                CyclicQueue<double> queue;
+                queue.queueMenu();
             }
                 break;
             case '5':{
-                
+                CyclicQueue<char*> queue;
+                queue.queueMenu();
             }
                 break;
             case 'b':
@@ -92,4 +158,42 @@ int main(){
     }
 
     return 0;
+}
+
+template <typename T>
+void fillArrayWithRandomNumbers(T* array, int size){
+    for (int i = 0; i < size; i++)
+        array[i] = rand() % 51;
+}
+
+template <typename T>
+void printArray(T* array, int size){
+    for (int i = 0; i < size; i++)
+        cout << array[i] << ' ';
+}
+
+void fillArrayWithRandomStrings(char** array, int size){
+
+    int stringSize;
+    for (int i = 0; i < size; i++){
+        stringSize = -1;
+        while(stringSize < 2 || stringSize > 50)
+            stringSize = rand() % 51;
+
+        char* string = new char[stringSize];
+        string[stringSize - 1] = '\n';
+
+        char asciiCode;
+        for (int j = 0; j < stringSize - 1; j++){
+            asciiCode = -1;
+            while (asciiCode < 32 || asciiCode > 126)
+                asciiCode = rand() % 256;
+            string[j] = asciiCode;
+        }
+    }
+}
+
+void printStringArray(char** array, int size){
+    for (int i = 0; i < size; i++)
+        cout << array[i] << endl;
 }

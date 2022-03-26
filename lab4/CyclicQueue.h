@@ -33,13 +33,21 @@ class QueueElement{
     T element;
     QueueElement<T>* ptrNext = nullptr;
 };
-
+/*
+template<>
+class QueueElement<char *>{
+    friend class CyclicQueue;
+    char* element;
+    QueueElement<char *>* ptrNext = nullptr;
+};
+*/
 template <typename T>
 class CyclicQueue{
 public:
     CyclicQueue();
     ~CyclicQueue();
     void printQueue();
+    void queueMenu();
     CyclicQueue<T> operator+(QueueElement<T>* newElement);
     CyclicQueue<T> operator+(int ignored);
     CyclicQueue<T> operator-(int ignored);
@@ -49,8 +57,9 @@ private:
     QueueElement<T>* ptrLast = nullptr;
     int amountElements = 0;
     void enterValue();
-    friend enterUint();
+    friend int enterUint();
     T createRandomValue();
+    char* createStringRandomLength();
 };
 
 template <typename T>
@@ -69,10 +78,25 @@ CyclicQueue<T>::CyclicQueue(){
 
 }
 
+template <>
+CyclicQueue<char*>::CyclicQueue(){
+
+    cout << "Enter size of queue: " << endl;
+    int num = enterUint();
+
+    QueueElement<char*>* newElement;
+
+    for (int i = 0; i < num; i++){
+        newElement = new QueueElement<char*>;
+        newElement->element = createStringRandomLength();
+        *this + newElement;
+    }
+}
+
 template <typename T>
 CyclicQueue<T>::~CyclicQueue(){
 
-    QueueElement<T>* delElement = ptrFirst, buffElement;
+    QueueElement<T>* delElement = ptrFirst,* buffElement;
 
     while (delElement != ptrLast){
         buffElement = delElement->ptrNext;
@@ -80,6 +104,22 @@ CyclicQueue<T>::~CyclicQueue(){
         delElement = buffElement;
     }
 
+    delete ptrLast;
+}
+
+template <>
+CyclicQueue<char *>::~CyclicQueue(){
+
+    QueueElement<char *>* delElement = ptrFirst,* buffElement;
+
+    while (delElement != ptrLast){
+        buffElement = delElement->ptrNext;
+        delete[] delElement->element;
+        delete delElement;
+        delElement = buffElement;
+    }
+
+    delete[] ptrLast->element;
     delete ptrLast;
 }
 
@@ -109,6 +149,54 @@ template <typename T>
 T CyclicQueue<T>::createRandomValue(){
 
     return rand() % 51; 
+}
+
+template<typename T>
+char* CyclicQueue<T>::createStringRandomLength(){
+
+    int len = -1;
+
+    while(len < 2)
+    len = rand() % 51;
+    
+    char string = new char[len];
+    string[len - 1] = '\n';
+
+    char asciiSymbol = -1;
+    for (int i = 0; i < len - 1, i++){
+        asciiSymbol = -1;
+        while (asciiSymbol < 32 || asciiSymbol > 126)
+            asciiSymbol = rand() % 51;
+        string[i] = asciiSymbol;
+    }
+}
+
+template <typename T>
+void CyclicQueue<T>::queueMenu(){
+
+    while(1){
+        cout << "1 - add element to queue" << endl << "2 - delete element from queue" << "3 - check if queue is empty" << "4 - print queue"<< endl 
+        << "b - go back" << endl;
+        char c = getch();
+        switch(c){
+            case '1':
+                *this + 0;
+                break;
+            case '2':
+                *this - 0;
+                break;
+            case '3':
+                cout << !(*this) << endl;
+                break;
+            case '4':
+                printQueue();
+                break;
+            case 'b':
+                return;
+            default:
+                cout << "Wrong key" << endl;
+        }
+    }
 }
 
 template <typename T>
