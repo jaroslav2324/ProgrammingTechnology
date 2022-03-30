@@ -1,20 +1,26 @@
-#include "cstring"
+#include <cstring>
+
+template <typename T>
+void merge(T* array, int firstIndex, int lastIndex);
+
+template <>
+void merge<char*>(char** array, int firstIndex, int lastIndex);
 
 template <typename T>
 void mergeSort(T* array, int firstIndex, int lastIndex){
     
     if (firstIndex < lastIndex){
 
-        MergeSort(array, firstIndex, firstIndex + (lastIndex - firstIndex) / 2);
-        MergeSort(array, firstIndex + (lastIndex - firstIndex) / 2 + 1, lastIndex);
+        mergeSort<T>(array, firstIndex, firstIndex + (lastIndex - firstIndex) / 2);
+        mergeSort<T>(array, firstIndex + (lastIndex - firstIndex) / 2 + 1, lastIndex);
 
-        Merge(array, firstIndex, lastIndex);
+        merge<T>(array, firstIndex, lastIndex);
     }
 }
 
 
 template <typename T>
-void Merge(T* array, int firstIndex, int lastIndex){
+void merge(T* array, int firstIndex, int lastIndex){
 
     int m = firstIndex + (lastIndex - firstIndex) / 2;
 
@@ -59,7 +65,7 @@ void Merge(T* array, int firstIndex, int lastIndex){
 }
 
 template <>
-void Merge<char*>(char** array, int firstIndex, int lastIndex){
+void merge<char*>(char** array, int firstIndex, int lastIndex){
 
     int m = firstIndex + (lastIndex - firstIndex) / 2;
 
@@ -67,7 +73,9 @@ void Merge<char*>(char** array, int firstIndex, int lastIndex){
     int n1 = m - firstIndex + 1;
     int n2 = lastIndex - m;
 
-    char* leftArr[n1], *rightArr[n2];
+    char** leftArr = new char*[n1];
+    char** rightArr = new char*[n2];
+    char** outArr = new char*[n1 + n2];
 
     for (i = 0; i < n1; i++)
         leftArr[i] = array[firstIndex + i];
@@ -77,29 +85,50 @@ void Merge<char*>(char** array, int firstIndex, int lastIndex){
 
     i = 0;
     j = 0;
-    s = firstIndex;
+    s = 0;
     while (i < n1 && j < n2){
+        if (strlen(leftArr[i]) < strlen(rightArr[j])){
+            outArr[s] = leftArr[i];
+            s++;
+            i++;
+            continue;
+        }
+        if (strlen(leftArr[i]) > strlen(rightArr[j])){
+            outArr[s] = rightArr[j];
+            s++;
+            j++;
+            continue;
+        }
         if (strcmp(leftArr[i], rightArr[j]) >= 0){
-            array[s] = leftArr[i];
+            outArr[s] = leftArr[i];
             i++;
         }
         else{
-            array[s] = rightArr[j];
+            outArr[s] = rightArr[j];
             j++;
         }
         s++;
     }
 
     while (i < n1){
-        array[s] = leftArr[i];
+        outArr[s] = leftArr[i];
         i++;
         s++;
     }
 
     while (j < n2){
-        array[s] = rightArr[j];
+        outArr[s] = rightArr[j];
         j++;
         s++;
     }
+
+    for (int i = 0, j = firstIndex; j <= lastIndex; i++, j++)
+        array[j] = outArr[i];
+
+    delete leftArr;
+    delete rightArr;
+    delete outArr;
+    //delete leftArr;
+    //delete rightArr;
 }
 
