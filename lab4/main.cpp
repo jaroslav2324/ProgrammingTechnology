@@ -178,28 +178,33 @@ int main(){
             case '2':{
                 system("clear");
                 CyclicQueue<char> queue;
+                system("clear");
                 queue.queueMenu();
             }
                 break;
             case '3':{
                 system("clear");
                 CyclicQueue<float> queue;
+                system("clear");
                 queue.queueMenu();
             }
                 break;
             case '4':{
                 system("clear");
                 CyclicQueue<double> queue;
+                system("clear");
                 queue.queueMenu();
             }
                 break;
             case '5':{
                 system("clear");
                 CyclicQueue<char*> queue;
+                system("clear");
                 queue.queueMenu();
             }
                 break;
             case 'b':
+                system("clear");
                 break;
             default:
                 system("clear");
@@ -208,6 +213,7 @@ int main(){
                 getch();
                 system("clear");
             }
+            break;
         case 'Q':
             exit(0);
         case '\n':
@@ -229,7 +235,6 @@ void fillArrayWithRandomNumbers(T* array, int size){
     for (int i = 0; i < size; i++)
         array[i] = rand() % 51;
 }
-
 
 template <typename T>
 void printArray(T* array, int size){

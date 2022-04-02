@@ -52,9 +52,9 @@ public:
     ~CyclicQueue();
     void printQueue();
     void queueMenu();
-    CyclicQueue<T> operator+(QueueElement<T>* newElement);
-    CyclicQueue<T> operator+(int ignored);
-    CyclicQueue<T> operator-(int ignored);
+    void operator+(QueueElement<T>* newElement);
+    void operator+(int ignored);
+    void operator-(int ignored);
     bool operator!();
 private:
     QueueElement<T>* ptrFirst = nullptr;
@@ -69,7 +69,7 @@ private:
 
 template <typename T>
 CyclicQueue<T>::~CyclicQueue(){
-
+    cout << "destructor working" << endl;
     QueueElement<T>* delElement = ptrFirst,* buffElement;
 
     while (delElement != ptrLast){
@@ -108,7 +108,7 @@ CyclicQueue<T>::CyclicQueue(){
     for (int i = 0; i < num; i++){
         newElement = new QueueElement<T>;
         newElement->element = createRandomValue();
-        *this + newElement;
+        operator+(newElement);
     }
 
 }
@@ -131,10 +131,31 @@ CyclicQueue<char*>::CyclicQueue(){
 template <typename T>
 void CyclicQueue<T>::printQueue(){
 
+    if (amountElements == 0)
+        return;
+
     QueueElement<T>* element = ptrFirst;
 
-    while (element != ptrLast)
+    while (element != ptrLast){
         cout << element->element << "<-";
+        element = element->ptrNext;
+    }
+    
+    cout << ptrLast->element;
+}
+
+template <>
+void CyclicQueue<char *>::printQueue(){
+
+    if (amountElements == 0)
+        return;
+
+    QueueElement<char*>* element = ptrFirst;
+
+    while (element != ptrLast){
+        cout << element->element;
+        element = element->ptrNext;
+    }
     
     cout << ptrLast->element;
 }
@@ -206,8 +227,8 @@ char* CyclicQueue<T>::createStringRandomLength(){
     char asciiSymbol = -1;
     for (int i = 0; i < len - 1; i++){
         asciiSymbol = -1;
-        while (asciiSymbol < 32 || asciiSymbol > 126)
-            asciiSymbol = rand() % 51;
+        while (asciiSymbol < 48 || (asciiSymbol > 57 && asciiSymbol < 65) || (asciiSymbol > 90 && asciiSymbol < 97) || asciiSymbol > 122)
+            asciiSymbol = rand() % 256;
         string[i] = asciiSymbol;
     }
 
@@ -239,6 +260,8 @@ void CyclicQueue<T>::queueMenu(){
             case '3':
                 system("clear");
                 cout << !(*this) << endl;
+                getch();
+                system("clear");
                 break;
             case '4':
                 system("clear");
@@ -258,7 +281,7 @@ void CyclicQueue<T>::queueMenu(){
 }
 
 template <typename T>
-CyclicQueue<T> CyclicQueue<T>::operator+(int ignored){
+void CyclicQueue<T>::operator+(int ignored){
 
     QueueElement<T>* newElement = new QueueElement<T>;
     newElement->element = enterValue();
@@ -272,7 +295,7 @@ CyclicQueue<T> CyclicQueue<T>::operator+(int ignored){
 
         cout << "Added" << endl;
         amountElements++;
-        return *this;
+        return;
     }
 
     if (ptrFirst == ptrLast){
@@ -284,7 +307,7 @@ CyclicQueue<T> CyclicQueue<T>::operator+(int ignored){
 
         cout << "Added" << endl;
         amountElements++;
-        return *this;
+        return;
     }
 
     newElement->ptrNext = ptrFirst;
@@ -293,11 +316,11 @@ CyclicQueue<T> CyclicQueue<T>::operator+(int ignored){
     amountElements++;
 
     cout << "Added" << endl;
-    return *this;
+    return;
 }
 
 template <typename T>
-CyclicQueue<T> CyclicQueue<T>::operator+(QueueElement<T>* newElement){
+void CyclicQueue<T>::operator+(QueueElement<T>* newElement){
 
     if (ptrFirst == nullptr){
 
@@ -307,7 +330,7 @@ CyclicQueue<T> CyclicQueue<T>::operator+(QueueElement<T>* newElement){
         ptrLast = newElement;
 
         amountElements++;
-        return *this;
+        return;
     }
 
     if (ptrFirst == ptrLast){
@@ -318,26 +341,22 @@ CyclicQueue<T> CyclicQueue<T>::operator+(QueueElement<T>* newElement){
         ptrLast = newElement;
 
         amountElements++;
-        return *this;
+        return;
     }
 
-    newElement->ptrNext = ptrLast;
-    ptrFirst->ptrNext = newElement;
+    newElement->ptrNext = ptrFirst;
+    ptrLast->ptrNext = newElement;
     ptrLast = newElement;
     amountElements++;
-    return *this;
+    return;
 
 }
 
 template <typename T>
-CyclicQueue<T> CyclicQueue<T>::operator-(int ignored){
+void CyclicQueue<T>::operator-(int ignored){
 
     if (ptrFirst == nullptr)
-    //
         throw std::invalid_argument("No items in queue");
-        //cout << "Nothing to delete!" << endl;
-        //return *this;
-    //}
 
     if (ptrFirst == ptrLast){
 
@@ -348,7 +367,7 @@ CyclicQueue<T> CyclicQueue<T>::operator-(int ignored){
         ptrLast = nullptr;
 
         cout << "Deleted" << endl;
-        return *this;
+        return;
     }
 
     QueueElement<T>* delElement = ptrFirst;
@@ -357,11 +376,11 @@ CyclicQueue<T> CyclicQueue<T>::operator-(int ignored){
     amountElements--;
 
     delete delElement;
-    return *this;
+    return;
 }
 
 template <>
-CyclicQueue<char *> CyclicQueue<char *>::operator+(int ignored){
+void CyclicQueue<char *>::operator+(int ignored){
 
     QueueElement<char *>* newElement = new QueueElement<char *>;
     newElement->element = enterString();
@@ -375,7 +394,7 @@ CyclicQueue<char *> CyclicQueue<char *>::operator+(int ignored){
 
         cout << "Added" << endl;
         amountElements++;
-        return *this;
+        return;
     }
 
     if (ptrFirst == ptrLast){
@@ -387,7 +406,7 @@ CyclicQueue<char *> CyclicQueue<char *>::operator+(int ignored){
 
         cout << "Added" << endl;
         amountElements++;
-        return *this;
+        return;
     }
 
     newElement->ptrNext = ptrFirst;
@@ -396,18 +415,15 @@ CyclicQueue<char *> CyclicQueue<char *>::operator+(int ignored){
     amountElements++;
 
     cout << "Added" << endl;
-    return *this;
+    return;
 }
 
 template <>
-CyclicQueue<char *> CyclicQueue<char *>::operator-(int ignored){
+void CyclicQueue<char *>::operator-(int ignored){
 
     if (ptrFirst == nullptr)
-    //{
         throw std::invalid_argument("No items in queue");
-        //cout << "Nothing to delete!" << endl;
-        //return *this;
-    //}
+
 
     if (ptrFirst == ptrLast){
         
@@ -419,7 +435,7 @@ CyclicQueue<char *> CyclicQueue<char *>::operator-(int ignored){
         ptrLast = nullptr;
 
         cout << "Deleted" << endl;
-        return *this;
+        return;
     }
 
     QueueElement<char *>* delElement = ptrFirst;
@@ -429,7 +445,7 @@ CyclicQueue<char *> CyclicQueue<char *>::operator-(int ignored){
 
     delete[] delElement->element;
     delete delElement;
-    return *this;
+    return;
 }
 
 /*if queue is empty returns true either false*/
